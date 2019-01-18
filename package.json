@@ -1,0 +1,42 @@
+{
+  "name": "persiston",
+  "version": "0.1.0-alpha.0",
+  "description": "Simple persistent store with database-like API.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "adapters",
+    "*.js",
+    "*.ts"
+  ],
+  "scripts": {
+    "clean": "rimraf adapters *.js *.ts *.map",
+    "build": "npm run clean && tsc",
+    "test": "nyc mocha test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polar-bears/persiston.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "varHarrie",
+    "email": "varharrie@gmail.com",
+    "url": "https://github.com/varHarrie"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/polar-bears/persiston/issues"
+  },
+  "homepage": "https://github.com/polar-bears/persiston#readme",
+  "devDependencies": {
+    "@polar-bears/tslint-config-standard": "^1.0.0",
+    "@types/node": "^10.12.18",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.2"
+  }
+}

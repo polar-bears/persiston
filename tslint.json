@@ -1,0 +1,3 @@
+{
+  "extends": ["@polar-bears/tslint-config-standard"]
+}

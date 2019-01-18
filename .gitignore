@@ -1,0 +1,8 @@
+/.vscode
+/.nyc_output
+/node_modules
+/adapters
+/test/data.json
+/*.d.ts
+/*.js
+/*.map
