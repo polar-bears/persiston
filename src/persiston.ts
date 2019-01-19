@@ -12,7 +12,7 @@ export interface Adapter<T = any> {
 export class Persiston {
   private adapter: Adapter
 
-  private data: Collections = {}
+  public data: Collections = {}
 
   public constructor (adapter: Adapter) {
     this.adapter = adapter
@@ -29,7 +29,6 @@ export class Persiston {
   }
 
   public collection<T = any> (name: string): Collection<T> {
-    if (!this.data[name]) this.data[name] = []
-    return new Collection(this.data[name], this.save.bind(this))
+    return new Collection(this, name)
   }
 }

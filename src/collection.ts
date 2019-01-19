@@ -1,15 +1,20 @@
 import { deepCopy, match, toPairs } from './utils'
+import { Persiston } from './persiston'
 
 export type Query<T> = { [key in keyof T]?: any }
 
 export class Collection<T> {
-  private readonly collection: T[]
+  private store: Persiston
 
-  private onSave: () => Promise<any>
+  private name: string
 
-  public constructor (collection: T[], onSave: () => Promise<any>) {
-    this.collection = collection
-    this.onSave = onSave
+  public constructor (store: Persiston, name: string) {
+    this.store = store
+    this.name = name
+  }
+
+  private get collection () {
+    return this.store.data[this.name]
   }
 
   private query (query?: Query<T>): T[] {
@@ -53,7 +58,7 @@ export class Collection<T> {
       results = deepCopy(items)
     }
 
-    await this.onSave()
+    await this.store.save()
     return results
   }
 
@@ -65,7 +70,7 @@ export class Collection<T> {
       Object.assign(item, copyChanges)
     })
 
-    await this.onSave()
+    await this.store.save()
     return results.length
   }
 
@@ -78,7 +83,7 @@ export class Collection<T> {
 
     Object.assign(result, changes)
 
-    await this.onSave()
+    await this.store.save()
     return 1
   }
 
@@ -89,7 +94,7 @@ export class Collection<T> {
       const count = this.collection.length
       this.collection.length = 0
 
-      if (count) await this.onSave()
+      if (count) await this.store.save()
       return count
     }
 
@@ -103,7 +108,7 @@ export class Collection<T> {
       this.collection.splice(index, 1)
     })
 
-    if (indexes.length) await this.onSave()
+    if (indexes.length) await this.store.save()
     return indexes.length
   }
 
@@ -114,7 +119,7 @@ export class Collection<T> {
     if (index === -1) return 0
 
     this.collection.splice(index, 1)
-    await this.onSave()
+    await this.store.save()
     return 1
   }
 }
