@@ -33,12 +33,12 @@ export class Collection<T> {
     return result || null
   }
 
-  public async find (query?: Query<T>): Promise<T[]> {
-    return this.query(query).map(deepCopy)
+  public async find (query?: Query<T>, fields?: string): Promise<T[]> {
+    return this.query(query).map((item) => deepCopy(item, fields))
   }
 
-  public async findOne (query?: Query<T>): Promise<T | null> {
-    return deepCopy(this.queryOne(query))
+  public async findOne (query?: Query<T>, fields?: string): Promise<T | null> {
+    return deepCopy(this.queryOne(query), fields)
   }
 
   public async insert<A extends T | T[]> (items: A): Promise<A> {

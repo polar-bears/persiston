@@ -45,6 +45,26 @@ describe('utils', () => {
     expect(utils.match(obj, [['baz.foo', 'foo']])).to.equal(true)
   })
 
+  it('computedKeys', () => {
+    const obj = {a: 1, b: 2, c: 3, d: 4}
+
+    const keys1 = utils.computeKeys(obj)
+    const keys2 = utils.computeKeys(obj, '')
+    const keys3 = utils.computeKeys(obj, 'b c')
+    const keys4 = utils.computeKeys(obj, '-b -c')
+    const keys5 = utils.computeKeys(obj, '-a -b -c -d')
+    const keys6 = utils.computeKeys(obj, 'a -c -d')
+    const keys7 = utils.computeKeys(obj, '-a -b c')
+
+    expect(keys1).to.have.members(['a', 'b', 'c', 'd'])
+    expect(keys2).to.have.members(['a', 'b', 'c', 'd'])
+    expect(keys3).to.have.members(['b', 'c'])
+    expect(keys4).to.have.members(['a', 'd'])
+    expect(keys5).to.have.members([])
+    expect(keys6).to.have.members(['a'])
+    expect(keys7).to.have.members(['c'])
+  })
+
   it('deepCopy', () => {
     const obj = {
       foo: 'foo',

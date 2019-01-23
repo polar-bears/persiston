@@ -27,7 +27,29 @@ export function match<T> (obj: T, conditions: KeyValuePairs<keyof T>) {
   return true
 }
 
-export function deepCopy<T> (obj: T): T {
+export function computeKeys<T> (obj: T, keyStr?: string) {
+  const allKeys = Object.keys(obj)
+  const keys = keyStr ? keyStr.split(/\s+/) : []
+
+  if (!keys.length) return allKeys
+
+  const excluded: any = {}
+
+  const included = keys.filter((key) => {
+    const minus = key.startsWith('-')
+    const realKey = minus ? key.slice(1) : key
+
+    if (minus) excluded[realKey] = true
+
+    return !minus && !!realKey
+  })
+
+  if (included.length) return included
+
+  return allKeys.filter((key) => !excluded[key])
+}
+
+export function deepCopy<T> (obj: T, fields?: string): T {
   if (
     typeof obj === 'boolean' ||
     typeof obj === 'number' ||
@@ -46,7 +68,9 @@ export function deepCopy<T> (obj: T): T {
   }
 
   if (typeof obj === 'object') {
-    return Object.keys(obj).reduce(
+    const keys = computeKeys(obj, fields)
+
+    return keys.reduce(
       (newObj, key) => {
         newObj[key] = deepCopy((obj as any)[key])
         return newObj

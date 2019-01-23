@@ -57,6 +57,16 @@ describe('persiston', () => {
 
     const item4 = await store.collection('items').findOne({ group: 'C' })
     expect(item4).to.equal(null)
+
+    const item5 = await store.collection('items').findOne({ title: 'a1' }, '-group')
+    expect(item5).to.have.property('title')
+    expect(item5).to.have.property('active')
+    expect(item5).to.not.have.property('group')
+
+    const item6 = await store.collection('items').findOne({ title: 'a1'}, 'title')
+    expect(item6).to.have.property('title')
+    expect(item6).to.not.have.property('group')
+    expect(item6).to.not.have.property('active')
   })
 
   it('collection.find', async () => {
@@ -129,30 +139,30 @@ describe('persiston', () => {
     const items1 = await store.collection('items').find()
     expect(items1).to.have.lengthOf(7)
 
-    const result2 = await store.collection('items').removeOne({group: 'B'})
+    const result2 = await store.collection('items').removeOne({ group: 'B' })
     expect(result2).to.equal(1)
 
-    const items2 = await store.collection('items').find({group: 'B'})
+    const items2 = await store.collection('items').find({ group: 'B' })
     expect(items2).to.have.lengthOf(4)
 
-    const result3 = await store.collection('items').removeOne({group: 'B', otherProp: 'test'})
+    const result3 = await store.collection('items').removeOne({ group: 'B', otherProp: 'test' })
     expect(result3).to.equal(0)
 
-    const items3 = await store.collection('items').find({group: 'B'})
+    const items3 = await store.collection('items').find({ group: 'B' })
     expect(items3).to.have.lengthOf(4)
   })
 
   it('collection.remove', async () => {
-    const result1 = await store.collection('items').remove({group: 'C'})
+    const result1 = await store.collection('items').remove({ group: 'C' })
     expect(result1).to.equal(0)
 
     const items1 = await store.collection('items').find()
     expect(items1).to.have.lengthOf(8)
 
-    const result2 = await store.collection('items').remove({group: 'A', active: false})
+    const result2 = await store.collection('items').remove({ group: 'A', active: false })
     expect(result2).to.equal(2)
 
-    const items2 = await store.collection('items').find({group: 'A'})
+    const items2 = await store.collection('items').find({ group: 'A' })
     expect(items2).to.have.lengthOf(1)
 
     const result3 = await store.collection('items').remove()
