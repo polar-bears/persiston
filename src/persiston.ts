@@ -29,6 +29,7 @@ export class Persiston {
   }
 
   public collection<T = any> (name: string): Collection<T> {
+    this.data[name] = this.data[name] || []
     return new Collection(this, name)
   }
 }
