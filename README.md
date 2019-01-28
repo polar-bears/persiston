@@ -62,42 +62,42 @@ main()
 
 ## APIs
 
-- store.load(): Promise<Persiston>
+- `store.load(): Promise<Persiston>`
 
   Loads data by adapter. It should be called before all collection operations.
 
-- store.save(): Promise<Persiston>
+- `store.save(): Promise<Persiston>`
 
   Saves data by adapter. You probably won't call it by yourself.
 
-- store.collection(): Collection<T>
+- `store.collection(): Collection<T>`
 
   Gets a collection object.
 
-- collection.find(query?: Query<T>, fields?: string): Promise<T[]>
+- `collection.find(query?: Query<T>, fields?: string): Promise<T[]>`
 
   Finds items by query.
 
-- collection.findOne(query?: Query<T>, fields?: string): Promise<T | null>
+- `collection.findOne(query?: Query<T>, fields?: string): Promise<T | null>`
 
   Finds an item by query.
 
-- collection.insert<A extends T | T[]>(items: A): Promise<A>
+- `collection.insert<A extends T | T[]>(items: A): Promise<A>`
 
   Saves given item or items.
 
-- collection.update(query: Query<T>, changes: Partial<T>): Promise<number>
+- `collection.update(query: Query<T>, changes: Partial<T>): Promise<number>`
 
   Partially updates by query.
 
-- collection.updateOne(query: Query<T>, changes: Partial<T>): Promise<number>
+- `collection.updateOne(query: Query<T>, changes: Partial<T>): Promise<number>`
 
   Partially updates an item by query.
 
-- collection.remove(query?: Query<T>): Promise<number>
+- `collection.remove(query?: Query<T>): Promise<number>`
 
   Removes items by query.
 
-- collection.removeOne(query: Query<T>): Promise<number>
+- `collection.removeOne(query: Query<T>): Promise<number>`
 
   Removes an item by query.
