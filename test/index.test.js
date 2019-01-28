@@ -14,6 +14,20 @@ const dataFile = path.resolve(__dirname, 'data.json')
 const adapter = new FileAdapter(dataFile)
 const store = new Persiston(adapter)
 
+describe('persiston fail', () => {
+  it('load', async () => {
+    const deserialize = () => { throw new Error() }
+
+    const tempStore = new Persiston(new FileAdapter(dataFile, { deserialize }))
+
+    try {
+      await tempStore.load()
+    } catch (error) {
+      expect(error.message).to.match(/^Could\snot\sread\sfile.*/)
+    }
+  })
+})
+
 describe('persiston', () => {
   beforeEach(async () => {
     const data = {
