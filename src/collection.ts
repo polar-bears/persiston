@@ -14,6 +14,10 @@ export class Collection<T> {
   }
 
   private get collection () {
+    if (!this.store.data[this.name]) {
+      this.store.data[this.name] = []
+    }
+
     return this.store.data[this.name]
   }
 
