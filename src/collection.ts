@@ -67,7 +67,7 @@ export class Collection<T> {
   }
 
   public async update (query: Query<T>, changes: Partial<T>): Promise<number> {
-    const results = await this.query(query)
+    const results = this.query(query)
     const copyChanges = deepCopy(changes)
 
     results.forEach((item) => {
