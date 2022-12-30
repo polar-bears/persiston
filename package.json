@@ -33,7 +33,7 @@
     "@polar-bears/tslint-config-standard": "^1.0.0",
     "@types/node": "^12.0.7",
     "chai": "^4.2.0",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
     "tslint": "^5.17.0",
